@@ -32,6 +32,10 @@ namespace AgregatorLinkowProc
                   options.UseSqlite("Data Source=database.db"));
             services.AddControllersWithViews();
 
+            services.AddMvc()
+            .AddSessionStateTempDataProvider();
+            services.AddSession();
+
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IGenericRepository<User>, GenericRepository<User>>();
             services.AddTransient<IGenericRepository<Post>, GenericRepository<Post>>();
@@ -59,6 +63,7 @@ namespace AgregatorLinkowProc
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 

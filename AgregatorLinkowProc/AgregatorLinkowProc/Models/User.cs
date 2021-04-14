@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AgregatorLinkowProc.Helpers;
+using AgregatorLinkowProc.ViewModels;
 
 namespace AgregatorLinkowProc.Models
 {
@@ -25,5 +26,12 @@ namespace AgregatorLinkowProc.Models
 
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Like> Likes { get; set; }
+
+        public User() { }
+        public User(RegisterVM model)
+        {
+            this.Email = model.Email;
+            this.Password = Crypto.HashPassword(model.Password);
+        }
     }
 }

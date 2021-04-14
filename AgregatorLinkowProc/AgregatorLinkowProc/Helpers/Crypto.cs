@@ -15,5 +15,18 @@ namespace AgregatorLinkowProc.Helpers
                 .ComputeHash(Encoding.UTF8.GetBytes(value))
                 );
         }
+
+        public static bool VerifyHashedPassword(string databasePassword, string modelPassword)
+        {
+            if (HashPassword(modelPassword) == databasePassword)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

@@ -75,3 +75,5 @@ C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLink
 C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\obj\Debug\netcoreapp3.1\AgregatorLinkowProc.genruntimeconfig.cache
 C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\bin\Debug\netcoreapp3.1\Humanizer.dll
 C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\obj\Debug\netcoreapp3.1\Razor\Views\User\SignIn.cshtml.g.cs
+C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\obj\Debug\netcoreapp3.1\Razor\Views\User\SignUp.cshtml.g.cs

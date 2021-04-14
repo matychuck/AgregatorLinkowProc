@@ -1,4 +1,6 @@
-﻿using AgregatorLinkowProc.Models;
+﻿using AgregatorLinkowProc.DAL.Interfaces;
+using AgregatorLinkowProc.Models;
+using AgregatorLinkowProc.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,11 +13,15 @@ namespace AgregatorLinkowProc.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IUnitOfWork unitOfWork;
+        private readonly UserService _userService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, UserService userService)
         {
             _logger = logger;
+            this._userService = userService;
+            this.unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()

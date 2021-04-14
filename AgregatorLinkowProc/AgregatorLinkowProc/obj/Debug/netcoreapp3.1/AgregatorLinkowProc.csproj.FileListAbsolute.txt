@@ -77,3 +77,11 @@ C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLink
 C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\obj\Debug\netcoreapp3.1\Razor\Views\User\SignIn.cshtml.g.cs
 C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\obj\Debug\netcoreapp3.1\Razor\Views\User\SignUp.cshtml.g.cs
+C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\obj\Debug\netcoreapp3.1\Razor\Views\Post\CreatePost.cshtml.g.cs
+C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\bin\Debug\netcoreapp3.1\X.PagedList.dll
+C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\bin\Debug\netcoreapp3.1\X.PagedList.Mvc.Core.dll
+C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\bin\Debug\netcoreapp3.1\X.PagedList.Web.Common.dll
+C:\Users\user\source\repos\AgregatorLinkowProc\AgregatorLinkowProc\AgregatorLinkowProc\obj\Debug\netcoreapp3.1\AgregatorLinkowProc.MvcApplicationPartsAssemblyInfo.cs

@@ -20,5 +20,11 @@ namespace AgregatorLinkowProc.Models
         public Guid PostId { get; set; }
         public virtual Post Post { get; set; }
 
+        public Like() { }
+        public Like(Guid postId, Guid userId)
+        {
+            this.UserId = userId;
+            this.PostId = postId;
+        }
     }
 }

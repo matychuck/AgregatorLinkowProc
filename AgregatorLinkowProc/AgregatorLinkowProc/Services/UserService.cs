@@ -42,5 +42,15 @@ namespace AgregatorLinkowProc.Services
 
             return null;
         }
+
+        public User GetById(Guid userId)
+        {
+            return this.unitOfWork.UserRepository.GetByID(userId);
+        }
+
+        public string GetUsersEmail(Guid userId)
+        {
+            return this.unitOfWork.UserRepository.GetByID(userId).Email;
+        }
     }
 }

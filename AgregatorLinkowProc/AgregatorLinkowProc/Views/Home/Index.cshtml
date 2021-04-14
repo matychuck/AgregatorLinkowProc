@@ -1,8 +1,87 @@
-﻿@{
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@model IEnumerable<AgregatorLinkowProc.ViewModels.PostVM>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (Model != null && Model.Count()>0)
+{
+    foreach (var post in Model)
+    {
+        <div class="row">
+            <div class="post-main offset-lg-2 col-lg-8 offset-lg-2">
+                <div class="post-main-title">
+                    <a href="https://@post.Link"> @post.Title </a>
+                </div>
+                <div class="post-link">
+                    <a href="https://@post.Link">(@post.Link)</a>
+                </div>
+                <hr />
+                <div class="post-main-footer col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-9 form-inline">
+                            <button type="button" class="btn likeBtn" id="@post.PostId" data-value="@post.isLikedByUser">
+                                <span style="color: darkgray;"><i class="fa fa-heart"></i></span>
+                            </button>
+                            <label>@post.Likes</label>
+                        </div>
+                        <div class="col-lg-3" style="margin-top:3px;">
+                            @post.Date.ToString("MM/dd/yyyy H:mm")
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="row pages">
+        <div class="offset-lg-2 col-lg-8 offset-lg-2">
+            @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
+                new X.PagedList.Mvc.Core.Common.PagedListRenderOptions
+                {
+                    ContainerDivClasses = new[] { "navigation" },
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+                })
+        </div>
+    </div>
+}
+else
+{
+@Html.Raw("There are no posts")
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $('.likeBtn').each(function () {
+        if ($(this).data("value") === 'True') {
+            $(this).find('span').addClass('like');
+        }
+    });
+
+    $('ul.pagination > li.disabled > a').addClass('page-link');
+});
+
+
+$(".likeBtn").click(function () {
+
+    var likeValue = $(this).data("value");
+    var convertedValue = (likeValue === "True");
+    $(this).data('value', !convertedValue);
+
+    $.ajax({
+        type: "POST",
+        url: '@Url.Action("ChangeLike","Like")',
+        data: { postId: this.id, newStatus: !convertedValue },
+        success: function (result) {
+            window.location.href = "/";
+        },
+        error: function (request, status, error) {
+        }
+    });
+});
+</script>

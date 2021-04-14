@@ -27,5 +27,14 @@ namespace AgregatorLinkowProc.Models
         public DateTime Date { get; set; }
 
         public virtual ICollection<Like> Likes { get; set; }
+
+        public Post() { }
+        public Post(Guid userId, string link, string title)
+        {
+            this.UserId = userId;
+            this.Link = link;
+            this.Title = title;
+            this.Date = DateTime.Now;
+        }
     }
 }

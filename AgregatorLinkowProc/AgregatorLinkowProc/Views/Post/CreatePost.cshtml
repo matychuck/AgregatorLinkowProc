@@ -1,0 +1,75 @@
+﻿@model AgregatorLinkowProc.ViewModels.CreatePostVM
+
+@using (Html.BeginForm())
+{
+<div class="slidedown_head">
+    Create post
+    <i class="fa fa-bars" aria-hidden="true" style="float:right; padding-top:4px"></i>
+</div>
+    <div class="slidedown_body" style="display:none">
+        <div class="row form-space">
+            <div class="offset-lg-2 col-lg-8 offset-lg-2">
+                @Html.EditorFor(model => model.post.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Title" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.post.Title, "", new { @class = "text-danger" })
+        </div>
+        <div class="row form-space">
+            <div class="offset-lg-2 col-lg-8 offset-lg-2">
+                @Html.EditorFor(model => model.post.Link, new { htmlAttributes = new { @class = "form-control", placeholder = "Link" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.post.Link, "", new { @class = "text-danger" })
+        </div>
+        <div class="row form-space">
+            <div class="offset-lg-2 col-lg-8 offset-lg-2">
+                <input type="submit" class="btn btn-primary float-right" value="Add">
+            </div>
+        </div>
+    </div>
+        <div class="row">
+            @if (Model.posts != null)
+            {
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.post.Title)
+                        </th>
+                        <th>@Html.DisplayNameFor(model => model.post.Link)</th>
+                        <th>@Html.DisplayNameFor(model => model.post.AuthorLogin)</th>
+                        <th>@Html.DisplayNameFor(model => model.post.Date)</th>
+                        <th>@Html.DisplayNameFor(model => model.post.Likes)</th>
+                    </tr>
+
+                    @foreach (var item in Model.posts)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Link)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AuthorLogin)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Likes)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            }
+        </div>
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.slidedown_head').click(function () {
+            $(this).next('.slidedown_body').slideToggle();
+        });
+    });
+</script>

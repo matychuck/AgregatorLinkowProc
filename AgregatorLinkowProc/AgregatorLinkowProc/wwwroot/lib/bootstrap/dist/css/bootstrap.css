@@ -10908,3 +10908,73 @@ a.text-dark:hover, a.text-dark:focus {
 .navbar-item:hover {
     opacity: .8;
 }
+
+
+.form-space {
+    margin:10px;
+}
+
+.slidedown_head {
+    padding: 5px;
+    text-align: left;
+    background-color: #4A766E;
+    border: solid 1px #c3c3c3;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.slidedown_body {
+}
+
+.post-main {
+    height: 10%;
+    padding: 10px;
+    margin-top: 25px;
+    background-color: white;
+    border-radius: 10px 10px 10px 10px;
+    border: 1px solid #cbcbcb;
+}
+
+.post-main-title{
+    color: black;
+    font-size: 18px;
+}
+
+.post-link{
+    color: darkgray;
+    font-size:14px;
+}
+
+.post-main-footer {
+    background-color: transparent;
+}
+
+.post-main-bg {
+    background-color: #e8edf0;
+}
+
+.read-more {
+    color: red;
+    font-size: 12px;
+    float: left;
+    text-transform: uppercase;
+}
+
+.post-info {
+    color: dimgray;
+    font-size: 12px;
+    float: right;
+    margin-right: 3%;
+    text-transform: uppercase;
+}
+.post-author{
+    margin-right:5px;
+    font-size: 10px;
+}
+.like {
+    color: #CC0 !important;
+}
+
+.pages{
+    margin-top: 10px;
+}

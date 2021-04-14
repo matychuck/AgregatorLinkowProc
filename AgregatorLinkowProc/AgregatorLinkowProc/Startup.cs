@@ -1,6 +1,11 @@
+using AgregatorLinkowProc.DAL;
+using AgregatorLinkowProc.DAL.Interfaces;
+using AgregatorLinkowProc.Models;
+using AgregatorLinkowProc.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +28,18 @@ namespace AgregatorLinkowProc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                  options.UseSqlite("Data Source=database.db"));
             services.AddControllersWithViews();
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IGenericRepository<User>, GenericRepository<User>>();
+            services.AddTransient<IGenericRepository<Post>, GenericRepository<Post>>();
+            services.AddTransient<IGenericRepository<Like>, GenericRepository<Like>>();
+
+            services.AddTransient<UserService, UserService>();
+            services.AddTransient<PostService, PostService>();
+            services.AddTransient<LikeService, LikeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

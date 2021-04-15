@@ -34,7 +34,7 @@ namespace AgregatorLinkowProc.Controllers
 
         //Wyświetlanie postów
         public async Task<IActionResult> Index(int? page)
-        {         
+        {
             var pageNumber = page ?? 1; 
             int pageSize = 100; 
             var currentUserId = HttpContext.Session.GetString("UserId");           

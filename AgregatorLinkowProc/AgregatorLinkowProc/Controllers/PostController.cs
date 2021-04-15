@@ -69,19 +69,49 @@ namespace AgregatorLinkowProc.Controllers
 
         [LoggedUser]
         [HttpPost]
-        public IActionResult CreatePost(CreatePostVM model)
+        public async Task<IActionResult> CreatePost(CreatePostVM model)
         {
             var currentUserId = HttpContext.Session.GetString("UserId");
-            if (!string.IsNullOrEmpty(currentUserId))
-            {
-                Post post = new Post(Guid.Parse(currentUserId), model.post.Link, model.post.Title);
-                if (_postService.AddPost(post))
+            if (ModelState.IsValid)
+            {               
+                if (!string.IsNullOrEmpty(currentUserId))
                 {
-                    return RedirectToAction("Index", "Home");
+                    Post post = new Post(Guid.Parse(currentUserId), model.post.Link, model.post.Title);
+                    if (_postService.AddPost(post))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
 
-            return View();
+            var pageNumber = 1;
+            int pageSize = 100;
+            if (currentUserId != null)
+            {
+                var posts = await _postService.GetUsersPosts(Guid.Parse(currentUserId));
+                if (posts != null)
+                {
+                    model.posts = posts.Select(x => new PostVM()
+                    {
+                        PostId = x.PostId,
+                        Title = x.Title,
+                        Link = x.Link,
+                        AuthorId = x.UserId,
+                        AuthorLogin = _userService.GetUsersEmail(x.UserId),
+                        Date = x.Date,
+                        Likes = _likeService.CountPostsLikes(x.PostId)
+                    }).OrderByDescending(x => x.Likes).ToPagedList(pageNumber, pageSize); ;
+                }
+                else
+                {
+                    model.posts = null;
+                }
+            }
+            else
+            {
+                model.posts = null;
+            }
+            return View(model);
         }
     }
 }

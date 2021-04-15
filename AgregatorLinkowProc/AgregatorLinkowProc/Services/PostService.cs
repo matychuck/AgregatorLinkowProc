@@ -39,7 +39,7 @@ namespace AgregatorLinkowProc.Services
         public void RemoveAll()
         {   
             var posts = this.unitOfWork.PostRepository.GetWhere();
-            foreach(var post in posts)
+            foreach (var post in posts)
             {
                 this.unitOfWork.PostRepository.Delete(post);
                 this.unitOfWork.Save();

@@ -44,10 +44,10 @@ namespace AgregatorLinkowProc.Services
             }          
         }
 
-        public IEnumerable<Post> GetNotExpiredPosts()
+        public async Task<IEnumerable<Post>> GetNotExpiredPosts()
         {
             var expireDate = DateTime.Now.AddDays(-5);
-            return this.unitOfWork.PostRepository.GetWhere(x => x.Date > expireDate);
+            return await Task.Run(() => this.unitOfWork.PostRepository.GetWhere(x => x.Date > expireDate));
         }
 
         public bool isUserPostAuthor(Guid userId, Guid postId)

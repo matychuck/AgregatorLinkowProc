@@ -23,5 +23,7 @@ namespace AgregatorLinkowProc.ViewModels
         public DateTime Date { get; set; }
 
         public bool isLikedByUser { get; set; }
+
+        public bool isUserAuthor { get; set; }
     }
 }

@@ -73,6 +73,7 @@ namespace AgregatorLinkowProc.Controllers
                 else
                 {
                     HttpContext.Session.SetString("UserId", obj.UserId.ToString());
+                    HttpContext.Session.SetString("UserName", obj.Email.ToString());
                 }
                 return RedirectToAction("Index", "Home");
             }

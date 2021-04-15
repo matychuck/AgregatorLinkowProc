@@ -31,17 +31,19 @@ namespace AgregatorLinkowProc.Controllers
             this._likeService = likeService;
         }
 
-        public IActionResult Index(int? page)
+        //[ResponseCache(VaryByHeader = "User-Agent", Duration = 30)]
+        public async Task<IActionResult> Index(int? page)
         {         
             var pageNumber = page ?? 1; 
             int pageSize = 100; 
             var currentUserId = HttpContext.Session.GetString("UserId");
-            var posts = _postService.GetNotExpiredPosts();
+            var posts = await _postService.GetNotExpiredPosts();
             IEnumerable<PostVM> model = null;
             if (posts != null)
             {
                 model = posts.Select(x => new PostVM()
                 {
+                    isUserAuthor = currentUserId==null ? false : Guid.Parse(currentUserId)== x.UserId,
                     isLikedByUser = currentUserId == null ? false : _likeService.CheckIfThatLikeExists(Guid.Parse(currentUserId),x.PostId),
                     PostId = x.PostId,
                     Title = x.Title,

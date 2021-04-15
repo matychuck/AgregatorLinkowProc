@@ -23,12 +23,18 @@ namespace AgregatorLinkowProc.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Zmiana polubienia postu
+        /// </summary>
+        /// <param name="postId">Identyfikato postu</param>
+        /// <param name="newStatus">Nowy stan polubienia</param>
+        /// <returns></returns>
         [LoggedUser]
-        public IActionResult ChangeLike(string postId, bool newStatus)
+        public async Task<IActionResult> ChangeLike(string postId, bool newStatus)
         {
             var currentUserId = HttpContext.Session.GetString("UserId");
-            if(!_postService.isUserPostAuthor(Guid.Parse(currentUserId), Guid.Parse(postId)))
-                _likeService.ChangeLike(Guid.Parse(postId), Guid.Parse(currentUserId), newStatus);
+            if (!_postService.isUserPostAuthor(Guid.Parse(currentUserId), Guid.Parse(postId))) //jeśli obecny użytkownik nie jest autorem posta
+                await Task.Run(() => _likeService.ChangeLike(Guid.Parse(postId), Guid.Parse(currentUserId), newStatus)); //dodanie lub cofnięcie polubienia
             return RedirectToAction("Index", "Home");
         }
     }

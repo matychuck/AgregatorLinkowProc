@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace AgregatorLinkowProc.Filters
 {
+    //Jeśli użytkownik jest zalogowany kontynuuj, przeciwnym wypadku przekierowanie do logowania
     public class LoggedUser : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)

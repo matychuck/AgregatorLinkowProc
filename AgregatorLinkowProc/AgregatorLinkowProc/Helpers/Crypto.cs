@@ -8,6 +8,7 @@ namespace AgregatorLinkowProc.Helpers
 {
     public static class Crypto
     {
+        //Haszowanie podanego hasła
         public static string HashPassword(string value)
         {
             return Convert.ToBase64String(
@@ -16,6 +17,7 @@ namespace AgregatorLinkowProc.Helpers
                 );
         }
 
+        //Sprawdzenie zgodności podanych haseł
         public static bool VerifyHashedPassword(string databasePassword, string modelPassword)
         {
             if (HashPassword(modelPassword) == databasePassword)

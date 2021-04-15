@@ -18,6 +18,7 @@ namespace AgregatorLinkowProc.Services
             this.unitOfWork = unitOfWork;
         }
 
+        //dodawanie nowego użytkownika jeśli użytkownik o danym e-mailu nie istnieje
         public bool AddNewUser(User user)
         {
             var obj = unitOfWork.UserRepository.GetWhere(x => x.Email == user.Email).FirstOrDefault();
@@ -31,6 +32,7 @@ namespace AgregatorLinkowProc.Services
                 return false;
         }
 
+        //sprawdzenie poprawności danych logowania
         public User TryToSignIn(LoginVM model)
         {
             var user = unitOfWork.UserRepository.GetWhere(x => x.Email == model.Email).FirstOrDefault();

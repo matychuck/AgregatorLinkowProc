@@ -30,26 +30,35 @@ namespace AgregatorLinkowProc.Services
             }
         }
 
-        public IEnumerable<Post> GetUsersPosts(Guid userId)
+        //Pobieranie postów autorstwa użytkownika o przesłanym identyfikatorze
+        public async Task<IEnumerable<Post>> GetUsersPosts(Guid userId)
         {
-            return this.unitOfWork.PostRepository.GetWhere(x => x.UserId == userId);
+            return await Task.Run(() => this.unitOfWork.PostRepository.GetWhere(x => x.UserId == userId));
         }
 
         public void RemoveAll()
-        {   var tmp = this.unitOfWork.PostRepository.GetWhere();
-            foreach(var x in tmp)
+        {   
+            var posts = this.unitOfWork.PostRepository.GetWhere();
+            foreach(var post in posts)
             {
-                this.unitOfWork.PostRepository.Delete(x);
+                this.unitOfWork.PostRepository.Delete(post);
                 this.unitOfWork.Save();
             }          
         }
 
+        //Pobieranie postów nie starszych niż 5 dni
         public async Task<IEnumerable<Post>> GetNotExpiredPosts()
         {
             var expireDate = DateTime.Now.AddDays(-5);
             return await Task.Run(() => this.unitOfWork.PostRepository.GetWhere(x => x.Date > expireDate));
         }
 
+        /// <summary>
+        /// Sprawdzenie czy użytkownik jest autorem posta
+        /// </summary>
+        /// <param name="userId">Identyfikator użytkownika</param>
+        /// <param name="postId">Identyfikator posta</param>
+        /// <returns></returns>
         public bool isUserPostAuthor(Guid userId, Guid postId)
         {
             var post = this.unitOfWork.PostRepository.GetByID(postId);

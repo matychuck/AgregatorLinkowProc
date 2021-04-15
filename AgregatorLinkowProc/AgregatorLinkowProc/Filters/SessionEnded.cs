@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace AgregatorLinkowProc.Filters
 {
+    //Jeśli użytkownik nie jest zalogowany przekierowanie do strony głównej
     public class SessionEnded : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)

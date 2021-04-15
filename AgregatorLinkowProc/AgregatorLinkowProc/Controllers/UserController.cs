@@ -40,6 +40,7 @@ namespace AgregatorLinkowProc.Controllers
                 User user = new User(model);
                 if (_userService.AddNewUser(user))
                 {
+                    TempData["SuccessMessage"] = "Successfully created account. You may sign in now.";
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -64,7 +65,7 @@ namespace AgregatorLinkowProc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var obj = _userService.TryToSignIn(model);
+                var obj = _userService.TryToSignIn(model); //sprawdzenie poprawności danych w bazie
                 if (obj == null)
                 {
                     ModelState.AddModelError(string.Empty, "Incorrect login or password");
@@ -86,12 +87,6 @@ namespace AgregatorLinkowProc.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
-        }
-
-        [LoggedUser]
-        public IActionResult CreatePost()
-        {
-            return View();
         }
     }
 }

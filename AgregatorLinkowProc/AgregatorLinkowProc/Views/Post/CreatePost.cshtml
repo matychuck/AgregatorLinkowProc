@@ -1,5 +1,6 @@
 ﻿@model AgregatorLinkowProc.ViewModels.CreatePostVM
-
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
 @using (Html.BeginForm())
 {
 <div class="slidedown_head">
@@ -25,44 +26,50 @@
             </div>
         </div>
     </div>
-        <div class="row">
-            @if (Model.posts != null)
-            {
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.post.Title)
-                        </th>
-                        <th>@Html.DisplayNameFor(model => model.post.Link)</th>
-                        <th>@Html.DisplayNameFor(model => model.post.AuthorLogin)</th>
-                        <th>@Html.DisplayNameFor(model => model.post.Date)</th>
-                        <th>@Html.DisplayNameFor(model => model.post.Likes)</th>
-                    </tr>
 
-                    @foreach (var item in Model.posts)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Link)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AuthorLogin)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Date)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Likes)
-                            </td>
-                        </tr>
-                    }
-
-                </table>
-            }
+@if (Model.posts != null)
+{
+        @foreach (var item in Model.posts)
+        {
+            <div class="row">
+                <div class="post-main offset-lg-2 col-lg-8 offset-lg-2">
+                    <div class="post-main-title">
+                        <a href="https://@item.Link"> @item.Title </a>
+                    </div>
+                    <div class="post-link">
+                        <a href="https://@item.Link">(@item.Link)</a>
+                    </div>
+                    <hr />
+                    <div class="post-main-footer col-lg-12 .">
+                        <div class="row">
+                            <div class="col-lg-9 form-inline">
+                                <button type="button" class="btn likeBtn" disabled="disabled">
+                                    <span style="color: darkgray;"><i class="fa fa-heart"></i></span>
+                                </button>
+            
+                                <label>@item.Likes</label>
+                            </div>
+                            <div class="col-lg-3" style="margin-top:3px;">
+                                @item.Date.ToString("MM/dd/yyyy H:mm")
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    <div class="row pages">
+        <div class="offset-lg-2 col-lg-8 offset-lg-2">
+            @Html.PagedListPager((IPagedList)Model.posts, page => Url.Action("CreatePost", new { page = page }),
+                new X.PagedList.Mvc.Core.Common.PagedListRenderOptions
+                {
+                    ContainerDivClasses = new[] { "navigation" },
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+                })
         </div>
+    </div>
+    }
 }
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

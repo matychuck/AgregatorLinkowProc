@@ -20,10 +20,10 @@ namespace AgregatorLinkowProc.ViewModels
 
         public int Likes { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } //data stworzenia posta
 
-        public bool isLikedByUser { get; set; }
+        public bool isLikedByUser { get; set; } //sprawdzenie czy post jest polubiony przez obecnie zalogowanego użytkownika
 
-        public bool isUserAuthor { get; set; }
+        public bool isUserAuthor { get; set; } //sprawdzenie czy obecnie zalogowany użytkownik jest autorem posta
     }
 }

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace AgregatorLinkowProc.Controllers
 {
@@ -29,15 +30,18 @@ namespace AgregatorLinkowProc.Controllers
             return View();
         }
 
+        //Tworzenie posta z listą postów użytkownika
         [LoggedUser]
-        public IActionResult CreatePost()
+        public async Task<IActionResult> CreatePost(int? page)
         {
+            var pageNumber = page ?? 1;
+            int pageSize = 100;
             var currentUserId = HttpContext.Session.GetString("UserId");
             CreatePostVM model = new CreatePostVM();
             if (currentUserId != null)
             {
 
-                var posts = _postService.GetUsersPosts(Guid.Parse(currentUserId));
+                var posts = await _postService.GetUsersPosts(Guid.Parse(currentUserId));
                 if(posts != null)
                 {
                     model.posts = posts.Select(x => new PostVM()
@@ -49,7 +53,7 @@ namespace AgregatorLinkowProc.Controllers
                         AuthorLogin = _userService.GetUsersEmail(x.UserId),
                         Date = x.Date,
                         Likes = _likeService.CountPostsLikes(x.PostId)
-                    });
+                    }).OrderByDescending(x => x.Likes).ToPagedList(pageNumber, pageSize); ;
                 }
                 else
                 {
@@ -63,6 +67,7 @@ namespace AgregatorLinkowProc.Controllers
             }
         }
 
+        [LoggedUser]
         [HttpPost]
         public IActionResult CreatePost(CreatePostVM model)
         {

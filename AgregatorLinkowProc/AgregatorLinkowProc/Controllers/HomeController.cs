@@ -4,6 +4,7 @@ using AgregatorLinkowProc.Services;
 using AgregatorLinkowProc.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -31,27 +32,28 @@ namespace AgregatorLinkowProc.Controllers
             this._likeService = likeService;
         }
 
-        //[ResponseCache(VaryByHeader = "User-Agent", Duration = 30)]
+        //Wyświetlanie postów
         public async Task<IActionResult> Index(int? page)
         {         
             var pageNumber = page ?? 1; 
             int pageSize = 100; 
-            var currentUserId = HttpContext.Session.GetString("UserId");
-            var posts = await _postService.GetNotExpiredPosts();
+            var currentUserId = HttpContext.Session.GetString("UserId");           
+            var posts = await _postService.GetNotExpiredPosts(); // posty nie starsze niż 5 dni
             IEnumerable<PostVM> model = null;
             if (posts != null)
-            {
+            {   
+                //mapowanie postów do viewmodela
                 model = posts.Select(x => new PostVM()
                 {
-                    isUserAuthor = currentUserId==null ? false : Guid.Parse(currentUserId)== x.UserId,
-                    isLikedByUser = currentUserId == null ? false : _likeService.CheckIfThatLikeExists(Guid.Parse(currentUserId),x.PostId),
+                    isUserAuthor = currentUserId==null ? false : Guid.Parse(currentUserId)== x.UserId, //czy obecny użytkownik jest autorem danego posta
+                    isLikedByUser = currentUserId == null ? false : _likeService.CheckIfThatLikeExists(Guid.Parse(currentUserId),x.PostId), //czy post jest polubiony przez obecnego użytkownika
                     PostId = x.PostId,
                     Title = x.Title,
                     Link = x.Link,
                     AuthorId = x.UserId,
                     AuthorLogin = _userService.GetUsersEmail(x.UserId),
                     Date = x.Date,
-                    Likes = _likeService.CountPostsLikes(x.PostId)
+                    Likes = _likeService.CountPostsLikes(x.PostId) //liczba polubień posta
                 }).OrderByDescending(x => x.Likes).ToPagedList(pageNumber, pageSize); 
             }
             return View(model);

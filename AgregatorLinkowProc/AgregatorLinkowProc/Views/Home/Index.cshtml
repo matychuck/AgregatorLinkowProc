@@ -8,52 +8,57 @@
     bool isLogged = !(@Context.Session.GetString("UserId") != null);
 }
 
-@if (Model != null && Model.Count()>0)
+@if (TempData.ContainsKey("SuccessMessage"))
+{
+    @Html.Partial("_Message", (string)TempData["SuccessMessage"])
+}
+
+@if (Model != null && Model.Count() > 0)
 {
     foreach (var post in Model)
     {
-<div class="row">
-    <div class="post-main offset-lg-2 col-lg-8 offset-lg-2">
-        <div class="post-main-title">
-            <a href="https://@post.Link"> @post.Title </a>
-        </div>
-        <div class="post-link">
-            <a href="https://@post.Link">(@post.Link)</a>
-        </div>
-        <hr />
-        <div class="post-main-footer col-lg-12 .">
-            <div class="row">
-                <div class="col-lg-9 form-inline">
-                    <button type="button" class="btn likeBtn" id="@post.PostId" data-value="@post.isLikedByUser" disabled="@(isLogged || post.isUserAuthor)">
-                        <span style="color: darkgray;"><i class="fa fa-heart"></i></span>
-                    </button>
-
-                    <label>@post.Likes</label>
+        <div class="row">
+            <div class="post-main offset-lg-2 col-lg-8 offset-lg-2">
+                <div class="post-main-title">
+                    <a href="https://@post.Link"> @post.Title </a>
                 </div>
-                <div class="col-lg-3" style="margin-top:3px;">
-                    @post.Date.ToString("MM/dd/yyyy H:mm")
+                <div class="post-link">
+                    <a href="https://@post.Link">(@post.Link)</a>
                 </div>
+                <hr />
+                <div class="post-main-footer col-lg-12 .">
+                    <div class="row">
+                        <div class="col-lg-9 form-inline">
+                            <button type="button" class="btn likeBtn" id="@post.PostId" data-value="@post.isLikedByUser" disabled="@(isLogged || post.isUserAuthor)">
+                                <span style="color: darkgray;"><i class="fa fa-heart"></i></span>
+                            </button>
 
+                            <label>@post.Likes</label>
+                        </div>
+                        <div class="col-lg-3" style="margin-top:3px;">
+                            @post.Date.ToString("MM/dd/yyyy H:mm")
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
     }
-<div class="row pages">
-    <div class="offset-lg-2 col-lg-8 offset-lg-2">
-        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
-            new X.PagedList.Mvc.Core.Common.PagedListRenderOptions
-            {
-                ContainerDivClasses = new[] { "navigation" },
-                LiElementClasses = new[] { "page-item" },
-                PageClasses = new[] { "page-link" },
-            })
+    <div class="row pages">
+        <div class="offset-lg-2 col-lg-8 offset-lg-2">
+            @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
+                new X.PagedList.Mvc.Core.Common.PagedListRenderOptions
+                {
+                    ContainerDivClasses = new[] { "navigation" },
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+                })
+        </div>
     </div>
-</div>
 }
 else
 {
-@Html.Raw("There are no posts")
+    @Html.Raw("There are no posts")
 }
 
 

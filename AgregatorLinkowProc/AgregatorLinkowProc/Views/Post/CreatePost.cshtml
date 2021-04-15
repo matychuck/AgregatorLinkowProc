@@ -1,63 +1,67 @@
 ﻿@model AgregatorLinkowProc.ViewModels.CreatePostVM
 @using X.PagedList.Mvc.Core;
 @using X.PagedList;
+
 @using (Html.BeginForm())
 {
 <div class="slidedown_head">
     Create post
     <i class="fa fa-bars" aria-hidden="true" style="float:right; padding-top:4px"></i>
 </div>
-    <div class="slidedown_body" style="display:none">
-        <div class="row form-space">
-            <div class="offset-lg-2 col-lg-8 offset-lg-2">
-                @Html.EditorFor(model => model.post.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Title" } })
-            </div>
-            @Html.ValidationMessageFor(model => model.post.Title, "", new { @class = "text-danger" })
+<div class="slidedown_body" style="display:none">
+    <div class="row form-space">
+        <div class="offset-lg-2 col-lg-8 offset-lg-2">
+            @Html.EditorFor(model => model.post.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Title" } })
         </div>
-        <div class="row form-space">
-            <div class="offset-lg-2 col-lg-8 offset-lg-2">
-                @Html.EditorFor(model => model.post.Link, new { htmlAttributes = new { @class = "form-control", placeholder = "Link" } })
-            </div>
-            @Html.ValidationMessageFor(model => model.post.Link, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.post.Title, "", new { @class = "text-danger" })
+    </div>
+    <div class="row form-space">
+        <div class="offset-lg-2 col-lg-8 offset-lg-2">
+            @Html.EditorFor(model => model.post.Link, new { htmlAttributes = new { @class = "form-control", placeholder = "Link" } })
         </div>
-        <div class="row form-space">
-            <div class="offset-lg-2 col-lg-8 offset-lg-2">
-                <input type="submit" class="btn btn-primary float-right" value="Add">
-            </div>
+        @Html.ValidationMessageFor(model => model.post.Link, "", new { @class = "text-danger" })
+    </div>
+    <div class="row form-space">
+        <div class="offset-lg-2 col-lg-8 offset-lg-2">
+            <input type="submit" class="btn btn-primary float-right" value="Add">
         </div>
     </div>
+</div>
 
 @if (Model.posts != null)
 {
-        @foreach (var item in Model.posts)
-        {
-            <div class="row">
-                <div class="post-main offset-lg-2 col-lg-8 offset-lg-2">
-                    <div class="post-main-title">
-                        <a href="https://@item.Link"> @item.Title </a>
-                    </div>
-                    <div class="post-link">
-                        <a href="https://@item.Link">(@item.Link)</a>
-                    </div>
-                    <hr />
-                    <div class="post-main-footer col-lg-12 .">
-                        <div class="row">
-                            <div class="col-lg-9 form-inline">
-                                <button type="button" class="btn likeBtn" disabled="disabled">
-                                    <span style="color: darkgray;"><i class="fa fa-heart"></i></span>
-                                </button>
-            
-                                <label>@item.Likes</label>
-                            </div>
-                            <div class="col-lg-3" style="margin-top:3px;">
-                                @item.Date.ToString("MM/dd/yyyy H:mm")
-                            </div>
-            
+
+@foreach (var item in Model.posts)
+    {
+        <div class="row">
+            <div class="post-main offset-lg-2 col-lg-8 offset-lg-2">
+                <div class="post-main-title">
+                    <a href="https://@item.Link"> @item.Title </a>
+                </div>
+                <div class="post-link">
+                    <a href="https://@item.Link">(@item.Link)</a>
+                </div>
+                <hr />
+                <div class="post-main-footer col-lg-12 .">
+                    <div class="row">
+                        <div class="col-lg-9 form-inline">
+                            <button type="button" class="btn likeBtn" disabled="disabled">
+                                <span style="color: darkgray;"><i class="fa fa-heart"></i></span>
+                            </button>
+        
+                            <label>@item.Likes</label>
                         </div>
+                        <div class="col-lg-3" style="margin-top:3px;">
+                            @item.Date.ToString("MM/dd/yyyy H:mm")
+                        </div>
+        
                     </div>
                 </div>
             </div>
-        }
+        </div>
+    }
+@if(Model.posts.Count()>0)
+    {
     <div class="row pages">
         <div class="offset-lg-2 col-lg-8 offset-lg-2">
             @Html.PagedListPager((IPagedList)Model.posts, page => Url.Action("CreatePost", new { page = page }),
@@ -70,6 +74,7 @@
         </div>
     </div>
     }
+  }
 }
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

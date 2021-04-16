@@ -97,7 +97,6 @@ namespace AgregatorLinkowProc.Controllers
                         Title = x.Title,
                         Link = x.Link,
                         AuthorId = x.UserId,
-                        AuthorLogin = _userService.GetUsersEmail(x.UserId),
                         Date = x.Date,
                         Likes = _likeService.CountPostsLikes(x.PostId)
                     }).OrderByDescending(x => x.Likes).ToPagedList(pageNumber, pageSize); ;

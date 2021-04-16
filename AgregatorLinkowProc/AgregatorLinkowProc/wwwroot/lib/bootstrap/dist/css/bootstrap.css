@@ -61,6 +61,8 @@ body {
     color: #212529;
     text-align: left;
     background-color: #fff;
+    overflow-y:auto;
+    overflow-x: hidden;
 }
 
 [tabindex="-1"]:focus {
@@ -4335,6 +4337,7 @@ input[type="button"].btn-block {
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 0.5rem 1rem;
+    min-height:40px;
 }
 
     .navbar > .container,
